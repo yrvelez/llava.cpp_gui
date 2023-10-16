@@ -12,6 +12,7 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     uploaded_file = request.files['imageFile']
+    query_input = request.form.get('query', '')  # Retrieve the query input
     image_path = ""
     output_text = ""
     
@@ -25,8 +26,8 @@ def upload_file():
         image_path = os.path.join(upload_dir, uploaded_file.filename)
         uploaded_file.save(image_path)
 
-        # Execute the C command
-        cmd = f"./llava -m examples/llava/ggml-model-q5_k.gguf --mmproj examples/llava/mmproj-model-f16.gguf --image {image_path}"
+        # Execute the C command, including the query input
+        cmd = f"./llava -m examples/llava/ggml-model-q5_k.gguf --mmproj examples/llava/mmproj-model-f16.gguf --image {image_path} -p \"{query_input}\""
         result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         
         # Get all the text output

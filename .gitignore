@@ -96,3 +96,7 @@ tests/test-tokenizer-0-llama
 tests/test-tokenizer-0-falcon
 tests/test-tokenizer-1-llama
 tests/test-tokenizer-1-bpe
+
+# llava models
+examples/llava/ggml-model-q5_k.gguf
+examples/llava/mmproj-model-f16.gguf
